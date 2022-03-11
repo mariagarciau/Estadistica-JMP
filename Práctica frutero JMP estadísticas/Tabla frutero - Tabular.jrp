@@ -1,0 +1,48 @@
+﻿New Table( "Tabla frutero",
+	Add Rows( 16 ),
+	New Column( "Valor",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values( [3, 19, 10, 15, 14, 12, 9, 8, 11, 12, 11, 12, 13, 11, 14, 16] )
+	),
+	New Column( "Media",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[11.875, 11.875, 11.875, 11.875, 11.875, 11.875, 11.875, 11.875, 11.875,
+			11.875, 11.875, 11.875, 11.875, 11.875, 11.875, 11.875]
+		)
+	),
+	New Column( "Desviación",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Values(
+			[-8.875, 7.125, -1.875, 3.125, 2.125, 0.125, -2.875, -3.875, -0.875,
+			0.125, -0.875, 0.125, 1.125, -0.875, 2.125, 4.125]
+		)
+	),
+	New Column( "Desviación al cuadrado",
+		Numeric,
+		"Continuous",
+		Format( "Best", 12 ),
+		Set Selected,
+		Set Values(
+			[78.765625, 50.765625, 3.515625, 9.765625, 4.515625, 0.015625, 8.265625,
+			15.011625, 0.765625, 0.015625, 0.765625, 0.015625, 1.265625, 0.765625,
+			4.515625, 17.015625]
+		)
+	)
+) << Run Formulas;
+Tabulate(
+	Add Table(
+		Column Table( Analysis Columns( :Media, :Desviación ) ),
+		Column Table( Analysis Columns( :Desviación al cuadrado ) ),
+		Row Table( Statistics( Variance, Quantiles( 90 ) ) ),
+		Row Table( Statistics( Sum ) ),
+		Row Table( Statistics( Max ) ),
+		Row Table( Statistics( Range ) )
+	)
+);
